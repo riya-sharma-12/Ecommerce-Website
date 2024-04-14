@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiance - Ecommerce website</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* Importing Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+/* Resetting default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Setting default font family */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Setting default colors */
+:root {
+    --main-color: #fd4646;
+    --text-color: #171427;
+    --bg-color: #fff;
+}
+
+/* Responsive image styles */
+img {
+    width: 100%;
+}
+
+/* Additional styling */
+body {
+    color: var(--text-color);
+    scroll-padding-top: 2rem; /* Check browser compatibility */
+    scroll-behavior: smooth;
+}
+
+/* Additional reset */
+ul, ol {
+    list-style: none;
+}
+
+/* Additional reset for links */
+a {
+    text-decoration: none;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--bg-color);
+    box-shadow: 0 1px 4px hsl(0 4% 15% / 10%);
+    z-index: 1;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.container{
+    max-width: 1068px;
+    margin: auto;
+    width: 100%;
+}
+
+section{
+    padding: 4rem 0 3rem;
+}
+
+.logo{
+    font-size: 1.1rem;
+    color: var(--text-color);
+    font-weight: 400;
+}
+
+#cart-icon{
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.section-title{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.shop{
+    margin-top: 2rem;
+}
+
+.shop-content{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,auto));
+    gap: 1.5rem;
+}
+
+.product-box{
+    position: relative;
+}
+
+.product-box:hover{
+    padding: 10px;
+    border: 1px solid var(--text-color);
+    transition: 0.4s;
+}
+
+.product-img{
+    width: 100%;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+.product-title{
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.price{
+    font-weight: 500;
+}
+
+.add-cart{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--text-color);
+    color: var(--bg-color);
+    padding: 10px;
+    cursor: pointer;
+}
+
+.add-cart:hover{
+    background: hsl(249,32%,17%);
+}
+
+/* .cart-container {
+    position: relative;
+    z-index: 2; 
+} */
+
+.cart{
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 3;
+    width: 360px;
+    min-height: 100vh;
+    padding: 20px;
+    background: var(--bg-color);
+    box-shadow: -2px 0 4px hsl(0 4% 15% / 10%);
+    transition: 0.3s;
+}
+
+.cart.active{
+    right: 0;
+}
+
+.cart-title{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+}
+
+.cart-box{
+    display: grid;
+    grid-template-columns: 32% 50% 18%;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.cart-img{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    padding: 10px;
+}
+
+.detail-box{
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.cart-product-title{
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.cart-price{
+    font-weight: 500;
+}
+
+.cart-quantity{
+    border: 1px solid var(--text-color);
+    outline-color:var(--main-color);
+    width: 2.4rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.cart-remove{
+    font-size: 24px;
+    color: var(--main-color);
+    cursor: pointer;
+}
+
+.total{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--text-color);
+}
+
+.total-title{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.total-price{
+    margin-left: 0.5rem;
+}
+
+.btn-buy{
+    display: flex;
+    margin: 1.5rem auto 0 auto;
+    padding: 12px 20px;
+    border: none;
+    background: var(--main-color);
+    color: var(--bg-color);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-buy:hover{
+    background: var(--text-color);
+}
+
+#close-cart{
+    position: relative;
+    top: 1rem;
+    right: 0.8rem;
+    font-size: 2rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+@media (max-width : 1080px){
+    .nav{
+        padding: 15px;
+    }
+    section{
+        padding: 3rem 0 2rem;
+    }
+    .container{
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    .SHOP{
+        margin-top: 2rem !important;
+    }
+}
+
+@media (max-width: 400px){
+    .nav{
+        padding: 11px;
+    }
+    .logo{
+        font-size: 1rem;
+    }
+    .cart{
+        width: 320px;
+    }
+}
+
+@media (max-width: 360px){
+    .shop{
+        margin-top: 1rem !important;
+    }
+    .cart{
+        width: 280px;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav container">
+            <a href="#" class="logo">Ecommerce</a>
+            <i class='bx bx-shopping-bag' id="cart-icon"></i>
+            <div class="cart">
+                <h2 class="cart-title">Your Cart</h2>
+                    <div class="cart-content">
+                    </div>
+
+                    <div class="total">
+                        <div class="total-title">Total</div>
+                        <div class="total-price">&#8377;0</div>
+                    </div>
+
+                    <button type="button" class="btn-buy">Buy Now</button>
+
+                    <i class='bx bx-x' id="close-cart"></i>
+            </div>
+        </div>   
+    </header>
+    <section class="shop container">
+        <h2 class="section-title">Shop Products</h2>
+
+        <div class="shop-content">
+            <div class="product-box">
+                <img src="product1.jpg" alt="" class="product-img">
+                <h2 class="product-title">RADIANCE T-SHIRT</h2>
+                <span class="price">&#8377;500</span>
+                <i class='bx bx-shopping-bag add-cart'></i>
+
+            </div>
+            <div class="product-box">
+                <img src="product2.jpg" alt="" class="product-img">
+                <h2 class="product-title">RADIANCE EARBUDS</h2>
+                <span class="price">&#8377;1500</span>
+                <i class='bx bx-shopping-bag add-cart'></i>
+                <div class="cart">
+                    <h2 class="cart-title">Your Cart</h2>
+                </div>
+            </div>
+            <div class="product-box">
+                <img src="product3.jpg" alt="" class="product-img">
+                <h2 class="product-title">RADIANCE JACKET</h2>
+                <span class="price">&#8377;750</span>
+                <i class='bx bx-shopping-bag add-cart'></i>
+            </div>
+            <div class="product-box">
+                <img src="product4.jpg" alt="" class="product-img">
+                <h2 class="product-title">RADIANCE BOTTLE</h2>
+                <span class="price">&#8377;600</span>
+                <i class='bx bx-shopping-bag add-cart'></i>
+            </div>
+            <div class="product-box">
+                <img src="product5.jpg" alt="" class="product-img">
+                <h2 class="product-title">RADIANCE SUNGLASSES</h2>
+                <span class="price">&#8377;400</span>
+                <i class='bx bx-shopping-bag add-cart'></i>
+            </div>
+            <div class="product-box">
+                <img src="product6.jpg" alt="" class="product-img">
+                <h2 class="product-title">RADIANCE CAP</h2>
+                <span class="price">&#8377;200</span>
+                <i class='bx bx-shopping-bag add-cart'></i>
+            </div>
+            <div class="product-box">
+                <img src="product7.jpg" alt="" class="product-img">
+                <h2 class="product-title">RADIANCE BAGPACK</h2>
+                <span class="price">&#8377;850</span>
+                <i class='bx bx-shopping-bag add-cart'></i>
+            </div>
+            <div class="product-box">
+                <img src="product8.jpg" alt="" class="product-img">
+                <h2 class="product-title">RADIANCE SPORT SHOES</h2>
+                <span class="price">&#8377;1275</span>
+                <i class='bx bx-shopping-bag add-cart'></i>
+            </div>
+
+        </div>
+    </section>
+    <script>
+        let cartIcon = document.querySelector("#cart-icon");
+let cart = document.querySelector(".cart");
+let closeCart = document.querySelector("#close-cart");
+
+cartIcon.onclick = () => {
+    cart.classList.add("active");
+};
+
+closeCart.onclick = () => {
+    cart.classList.remove("active");
+};
+
+if (document.readyState == "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+} else {
+    ready();
+}
+
+function ready() {
+    // Remove Items from Cart
+    var removeCartButtons = document.getElementsByClassName('cart-remove');
+
+    for (var i = 0; i < removeCartButtons.length; i++) {
+        var button = removeCartButtons[i];
+        button.addEventListener("click", removeCartItem);
+    }
+
+    var quantityInputs = document.getElementsByClassName("cart-quantity");
+    for (var i = 0; i < quantityInputs.length; i++) {
+        var input = quantityInputs[i];
+        input.addEventListener("change", quantityChanged);
+    }
+
+    // Add to Cart
+    var addCart = document.getElementsByClassName("add-cart");
+    for (var i = 0; i < addCart.length; i++) {
+        var button = addCart[i];
+        button.addEventListener("click", addCartClicked);
+    }
+
+    document.getElementsByClassName("btn-buy")[0].addEventListener("click", buyButtonClicked);
+}
+
+function buyButtonClicked() {
+    alert("Your order is placed");
+    var cartContent = document.getElementsByClassName("cart-content")[0];
+    while (cartContent.hasChildNodes()) {
+        cartContent.removeChild(cartContent.firstChild);
+    }
+    updatetotal();
+}
+
+// Remove items from cart
+function removeCartItem(event) {
+    var buttonClicked = event.target;
+    buttonClicked.parentElement.remove();
+    updatetotal();
+}
+
+function quantityChanged(event) {
+    var input = event.target;
+    if (isNaN(input.value) || input.value <= 0) {
+        input.value = 1;
+    }
+    updatetotal();
+}
+
+// Add to cart
+
+function addCartClicked(event) {
+    var button = event.target;
+    var shopProducts = button.parentElement;
+    var title = shopProducts.querySelector(".product-title").innerText;
+    var price = shopProducts.querySelector(".price").innerText;
+    var productImg = shopProducts.querySelector(".product-img").src;
+    addProductToCart(title, price, productImg);
+    updatetotal();
+}
+
+function addProductToCart(title, price, productImg) {
+    var cartItems = document.querySelector('.cart-content');
+    var cartItemTitles = cartItems.querySelectorAll('.cart-product-title');
+    for (var i = 0; i < cartItemTitles.length; i++) {
+        if (cartItemTitles[i].innerText === title) {
+            alert("This item has already been added in your cart");
+            return;
+        }
+    }
+
+    var cartShopBox = document.createElement('div');
+    cartShopBox.classList.add("cart-box");
+    
+    var cartBoxContent = `
+        <img src="${productImg}" alt="" class="cart-img">
+        <div class="detail-box">
+            <div class="cart-product-title">${title}</div>
+            <div class="cart-price">${price}</div>
+            <input type="number" value="1" class="cart-quantity">
+        </div>
+        <i class='bx bxs-trash-alt cart-remove'></i>
+    `;
+    
+    cartShopBox.innerHTML = cartBoxContent;
+    
+    cartItems.appendChild(cartShopBox);
+    
+    cartShopBox.querySelector('.cart-remove').addEventListener("click", removeCartItem);
+    cartShopBox.querySelector('.cart-quantity').addEventListener("change", quantityChanged);
+}
+
+
+function updatetotal() {
+    var total = 0;
+    var rupeeSymbol = String.fromCharCode(8377);
+    var cartBoxes = document.getElementsByClassName('cart-box');
+    for (var i = 0; i < cartBoxes.length; i++) {
+        var cartBox = cartBoxes[i];
+        var priceElement = cartBox.querySelector(".cart-price");
+        var quantityElement = cartBox.querySelector(".cart-quantity");
+        var price = parseFloat(priceElement.innerText.replace(rupeeSymbol, ''));
+        var quantity = quantityElement.value;
+        total += (price * quantity);
+    }
+
+    total = Math.round(total * 100) / 100;
+    document.querySelector(".total-price").innerText = rupeeSymbol + total.toFixed(2);
+}
+
+    </script>
+</body>
+</html>
